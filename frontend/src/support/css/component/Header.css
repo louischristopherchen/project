@@ -1,0 +1,70 @@
+.icon-bar{
+    background-color:rgba(255, 255, 0, 0.945)!important;
+}
+.navbar-toggle:hover .icon-bar{
+    background-color:black!important;
+}
+.navbar-toggle:focus .icon-bar{
+    background-color:black!important;
+}
+.navbar-collapse{
+    border:0px!important;
+}
+
+.navbar-toggle{
+    background-color:rgba(255, 255, 0, 0.945);
+    color:black;
+    border:1px rgba(255, 255, 0, 0.945) solid!important;
+}
+.navbar-toggle:hover{
+    background-color:rgba(255, 255, 0, 0.945)!important;
+    
+}
+.navbar-toggle:focus{
+    background-color:rgba(255, 255, 0, 0.945)!important;
+    
+}
+#basic-nav-dropdown{
+    background-color:black;
+    color:rgba(255, 255, 0, 0.945);
+}
+#basic-nav-dropdown:hover{
+    background-color:rgba(255, 255, 0, 0.945);
+    color:black;
+}
+ul.dropdown-menu{
+    background-color:black;
+    color:rgba(255, 255, 0, 0.945);
+}
+#brandnav{
+    background-color:black;
+    color:rgba(255, 255, 0, 0.945);
+}
+#navhead{
+    background-color:black;
+    color:rgba(255, 255, 0, 0.945);
+    border:0px;
+}
+#text{
+    background-color:black;
+    color:rgba(255, 255, 0, 0.945);
+}
+#text #text2{
+    background-color:black;
+    color:rgba(255, 255, 0, 0.945);
+    
+}
+#text:hover{
+    background-color:rgba(255, 255, 0, 0.945);
+    color:black;
+}
+#text:hover #text2{
+    background-color:rgba(255, 255, 0, 0.945);
+    color:black;
+    text-decoration: none;
+   
+}
+#text:link #text2{ 
+    text-decoration: none;
+   
+}

@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css?family=Mali');
+.App {
+  font-family: 'Mali', cursive;
+  text-align: center;
+  
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.bgBlackGold{
+  background-color:black;
+  color:rgba(255, 255, 0, 0.945);
+}
+.bgMaroonWhite{
+  background-color:maroon;
+  color:white;
+}
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+
+
+.pd0{
+  padding:0;
+}
+
+.dgray{
+  background-color: #fafafa;
+}
+
+.all0{
+  padding:0;
+  margin:0;
+}
+
+.playout{
+  display:inline-grid;
+  margin:5px;
+  background-color: black;
+  padding: 5px;
+ }
+
+ .gbulat{
+height:300px;
+width:300px;
+ border-radius: 5%;
+ margin-top:20px;
+ }
+
+ input[type="text"],input[type="password"] {
+  background: transparent!important;
+  border: none!important;
+  border-bottom: 3px solid rgba(255, 255, 0, 0.945)!important;
+  font-size : 20px;
+  font-weight: bold;
+  color:maroon;
+}
+
+ 
+input[type="text"]:focus,input[type="password"]:focus{
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid maroon!important;
+}
+
+
+.form-center{
+  padding:200px;
+  background-size:cover;
+  background-position: center;
+  color:maroon;
+}
+.formSignIn{
+  background-color: #fafafa ;
+  padding:2%;
+  margin:10%;
+  width:80%;
+  opacity: 0.7;
+  border-radius: 10%;
+}
+.formSignUp{
+  background-color: #fafafa ;
+  padding:2%;
+  margin:10%;
+  width:80%;
+  opacity: 0.7;
+  border-radius: 10%;
+}
+.tombol{
+  background-color: transparent;
+  color:rgba(255, 255, 0, 0.945);
+  border:none;
+  padding: 10px;
+  text-decoration: none;
+  font-size : 20px;
+  font-weight: bold;
+}
+.tombol:hover{
+  background-color: rgba(255, 255, 0, 0.945);
+  color:maroon;
+  border:none;
+  padding: 10px;
+  text-decoration: none;
+  font-size : 20px;
+  font-weight: bold;
+}
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

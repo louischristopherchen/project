@@ -1,0 +1,11 @@
+.carousel .slide .legend {
+    background-color:rgba(255, 255, 0, 0.945)!important;
+    color:maroon!important;
+    font-weight: bold!important;
+}
+.carousel .thumb.selected, .carousel .thumb:hover{
+    border: 3px solid rgba(255, 255, 0, 0.945)!important;
+}
+.carousel .thumb{
+    border: 3px solid black!important;
+}

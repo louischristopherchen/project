@@ -1,0 +1,25 @@
+.footcontent{
+    text-align: center;
+    margin:0px!important;
+    padding:10px 0px!important;
+    border-bottom:5px solid gold;
+}
+
+.foot{
+    background-color:black;
+    color:gold;
+    padding:0px!important;
+    margin:0px!important;
+}
+.copyright{
+    text-align:center;
+    background-color:maroon;
+  
+}
+.line{
+    height: 5px ;
+    width: 100%;
+    background-color:maroon;
+    margin:0px;
+    padding:0px;
+}

@@ -8,7 +8,7 @@ import image3 from '../../support/img/3.jpg';
 class Slide extends Component{
     render(){
         return(
-            <div className="col-xs-12 col-md-6">
+            <div className="col-xs-12 col-md-12">
 
             <Carousel autoPlay={true} showThumbs={true} showIndicators={false} >
             

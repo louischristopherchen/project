@@ -9,6 +9,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import './support/css/bootstrap.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+
 import reducer from './reducer';
 
 const store = createStore(reducer,{},applyMiddleware(ReduxThunk));

@@ -15,10 +15,10 @@
     background-color:rgba(255, 255, 0, 0.945);
     color:black;
     border:1px rgba(255, 255, 0, 0.945) solid!important;
+    
 }
 .navbar-toggle:hover{
     background-color:rgba(255, 255, 0, 0.945)!important;
-    
 }
 .navbar-toggle:focus{
     background-color:rgba(255, 255, 0, 0.945)!important;
@@ -68,3 +68,29 @@ ul.dropdown-menu{
     text-decoration: none;
    
 }
+.search {
+height: auto!important;
+max-width: 130px;
+-webkit-transition: width 0.4s ease-in-out;
+transition: width 0.4s ease-in-out;
+border-bottom: 1px solid maroon;
+padding: 0px!important;
+margin:10px!important;
+
+}
+::placeholder{
+color:maroon;
+}
+.search:focus::placeholder{
+color:rgba(255, 255, 0, 0.945);
+}
+
+.search:focus {
+max-width:  100%;
+color:rgba(255, 255, 0, 0.945);
+outline: none;
+border-bottom: 1px solid rgba(255, 255, 0, 0.945)!important;
+}
+.search:focus +.navbar-toggle{
+display:none;
+    }

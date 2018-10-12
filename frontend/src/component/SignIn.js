@@ -21,6 +21,7 @@ class SignIn extends Component
         this.props.doLogin({username,password});
     }
     render(){
+      
         // console.log(this.props.user.error);
         if(this.props.user.role!=="")
         {

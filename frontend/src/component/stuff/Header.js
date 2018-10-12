@@ -1,33 +1,32 @@
 import React, {Component} from 'react';
-import '../../support/css/component/Header.css';
-import Cookies from 'universal-cookie';
-import {Link} from 'react-router-dom';
+import {doLogOut} from '../../action/index';
+import {Link,withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {cekLogin,cookieChecked,doLogOut} from '../../action/index';
+import '../../support/css/component/Header.css';
+
+
 import {Nav, Navbar, NavItem, NavDropdown,MenuItem} from 'react-bootstrap';
-const cookies = new Cookies();
+
+
 class Header extends Component
 {
-  componentWillMount() {
-    const cookie = cookies.get("userCookie");
-    if(cookie !== undefined) {
-        this.props.cekLogin(cookie);
-    }
-    else {
-        this.props.cookieChecked();
-    }
+
+doSearch=(x)=>{
+  var a = x.which||x.keyCode;
+
+  if(a===13)
+{
+  
+  this.props.history.replace(`/home?temp=${this.refs.search.value}`);
 }
-componentWillReceiveProps(cookie) {
-  if(cookie.user.username === "") {
-      cookies.remove("userCookie");
-  }
+
 }
  doLogOut =()=>{
     this.props.doLogOut();
     }
   renderNavbar = ()=>
   {
-    console.log(this.props.user);
+    // console.log(this.props.user);
     if(this.props.user.role==="admin")
     {
       return(
@@ -35,8 +34,9 @@ componentWillReceiveProps(cookie) {
       <Navbar.Header>
         <Navbar.Brand>
           <Link id="brandnav" to="/">PenLa</Link>
+          
         </Navbar.Brand>
-        <Navbar.Toggle />
+        <Navbar.Toggle/>
       </Navbar.Header >
       <Navbar.Collapse>
         <Nav>
@@ -71,19 +71,16 @@ componentWillReceiveProps(cookie) {
     return(
       <Navbar id="navhead"  fixedTop={true} collapseOnSelect>
 <Navbar.Header>
-  <Navbar.Brand>
-  <Link id="brandnav" to="/">PenLa</Link>
+  <Navbar.Brand >
+  <Link id="brandnav" to="/">PenLa</Link> 
   </Navbar.Brand>
-  <Navbar.Toggle />
+  <Navbar.Brand>
+   <input  id="brandnav" ref="search" type="text" className="search" placeholder="Search.." onKeyPress={this.doSearch}/>
+   
+  </Navbar.Brand>
+  <Navbar.Toggle/>
 </Navbar.Header >
 <Navbar.Collapse>
-  <Nav>
-    <NavItem id="text" eventKey={1}>
-    <Link id="text2" to="/resto">Resto List</Link>
-    </NavItem>
-    
-
-  </Nav>
   <Nav pullRight>
     <NavItem id="text" eventKey={1}>
     <Link id="text2" to="/signIn">Sign-In</Link>
@@ -109,4 +106,4 @@ const mapStateToProps =(state)=>{
   return{user};
 }
 
-export default connect(mapStateToProps,{cekLogin,cookieChecked,doLogOut})(Header);
+export default withRouter(connect(mapStateToProps,{doLogOut})(Header));

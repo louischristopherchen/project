@@ -10,8 +10,7 @@ export const doLogin =(user)=>{
                 password : user.password
             }
         }).then(res=>{
-            // console.log(res.data);
-            if(res.data.length!==0){
+      
                 dispatch({type:"LOGIN_BERHASIL",
                           payload:{userID:res.data[0].userID,
                                 username:res.data[0].username,
@@ -19,14 +18,11 @@ export const doLogin =(user)=>{
                                 role:res.data[0].role,
                                 error:"",
                                 cookieCheck:"true"}
-            });//dispatch
-            }
-            else{
-                dispatch({type:"LOGIN_GAGAL"});
-            }
+            });
     
         }).catch(err=> {
-            console.log("error");
+            // console.log("error");
+            dispatch({type:"LOGIN_GAGAL"});
             
         })
 
@@ -42,8 +38,7 @@ export const cekLogin =(user)=>{
                 userID : user,
             }
         }).then(res=>{
-            console.log(res.data);
-            if(res.data.length!==0){
+           
                 dispatch({type:"LOGIN_BERHASIL",
                           payload:{userID:res.data[0].userID,
                                 username:res.data[0].username,
@@ -52,14 +47,13 @@ export const cekLogin =(user)=>{
                                 error:"",
                                 cookieCheck:"true"}
             });//dispatch
-            }
-            else{
-                dispatch({type:"LOGIN_GAGAL"});
-            }
+          
+           
+           
     
         }).catch(err=> {
             console.log("error");
-            
+            dispatch({type:"LOGIN_GAGAL"});
         })
 
     }

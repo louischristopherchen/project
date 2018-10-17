@@ -1,9 +1,16 @@
 import React, {Component} from 'react';
 import image1 from '../support/img/webComponent/resto.jpg';
+import {Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
 class SignUp extends Component
 {
     render(){
-        return <div className="container-fluid form-center" style={{backgroundImage: `url(${image1})`}}>
+        if(this.props.user.role!=="")
+        {
+            return <Redirect to="/" />;
+        }
+
+        return <div className="container-fluid form-center-maroon" style={{backgroundImage: `url(${image1})`}}>
         <div className="col-xs-12 col-md-6"></div>
         
         <div className="col-xs-12 col-md-6">
@@ -30,4 +37,8 @@ class SignUp extends Component
         </div>
     }
 }
-export default SignUp;
+const mapStateToProps =(state)=>{
+    const user= state.cekLogin;
+    return{user};
+}
+export default connect(mapStateToProps)(SignUp);

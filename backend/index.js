@@ -21,28 +21,29 @@ const conn = mysql.createConnection({
 app.get('/', (req, res) => {
     res.send('<h1>Selamat Datang!</h1>');
 });
+
 app.get('/listResto', (req, res) => {
-    var sql = `select r.nama,r.kapasitasSit,r.imgUrl,r.url,l.kota 
-    from resto r 
-    join location l 
-    on l.locationID = r.locationID;`;
-    conn.query(sql,(err,results) => {
-        if(err) throw err;
-            res.send(results);
-   
-    })
-});
-app.get('/searchResto', (req, res) => {
+    const {search} = req.query;
     
-    var sql = `select r.nama,r.kapasitasSit,r.imgUrl,r.url,l.kota 
+    if(search)
+    {
+        var sql = `select r.*,l.kota 
+        from resto r 
+        join location l 
+        on l.locationID = r.locationID
+        where l.kota like '%${search}%'or r.nama like '%${search}%';`;
+    }
+    else{
+    var sql = `select r.*,l.kota 
     from resto r 
     join location l 
-    on l.locationID = r.locationID;`;
-    conn.query(sql,(err,results) => {
-        if(err) throw err;
-            res.send(results);
-   
-    })
+    on l.locationID = r.locationID`;}
+        conn.query(sql,(err,results) => {
+            if(err) throw err;
+                res.send(results);
+        })
+    
+  
 });
 
 app.get('/doLogin', (req, res) => {

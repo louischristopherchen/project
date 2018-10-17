@@ -1,38 +1,53 @@
 import React, {Component} from 'react';
-import Slide from './stuff/Slide';
+// import Slide from './stuff/Slide';
 import axios from 'axios';
 import {API_URL} from '../support/api-url/apiurl';
 import queryString from 'query-string';
+import {connect} from 'react-redux';
 class Home extends Component{
     state={listResto:[],search:""}
 
     componentWillMount(){
         
         let params = queryString.parse(this.props.location.search);
-        console.log(params.temp);
+        // console.log(this.props);
         
         if(params.temp===""||params.temp===undefined)//kosong
         {
             this.doGet();
-           
         }
         else{
             
-       this.setState({listResto:[]});
+            this.doSearch(params.temp);
         }
     }
-    componentWillReceiveProps(){
-        var params = queryString.parse(this.props.location.search)
-        console.log(params.temp);
-        if(params.temp===""||params.temp===undefined)//kosong
+   componentWillReceiveProps(x){
+        // console.log(queryString.parse(x.location.search).temp);
+        var a= queryString.parse(x.location.search).temp;
+        if(a==="")//kosong
         {
             this.doGet();
-          
         }
-        else{
+        else
+        {
+        this.doSearch(a);
+        }
+    }
+
+    doSearch(a)
+    {
+        axios.get(API_URL+"/listResto",{
+            params:{
+                search:a
+            }
+        }).then(scs=>{
+            // console.log(scs.data);
+        this.setState({listResto:scs.data});
+       
+        }).catch((err) => {
             
-       this.setState({listResto:[]});
-        }
+            console.log(err);
+        })
     }
     doGet()
     {
@@ -42,55 +57,70 @@ class Home extends Component{
         this.setState({listResto:scs.data});
        
         })
-        .catch((err) => {
+        .catch((res) => {
             alert('Error!');
-            console.log(err);
+            console.log(res);
         })
     }
-    
-    // doSearch()
-    // {
-    //     axios.get(API_URL+"/searchResto")
-    //     .then(scs=>{
-    //         // console.log(scs.data);
-    //     this.setState({listResto:scs.data});
-       
-    //     })
-    //     .catch((err) => {
-    //         alert('Error!');
-    //         console.log(err);
-    //     })
-    // }
-  
+    toBook(id){
+        // console.log(id);
+        this.props.history.replace(`/resto/${id}`); 
+    }
     renderResto=()=>
     {
-        return this.state.listResto.map((temp,index)=>
+        if(this.state.listResto.length===0)
+        {
+            return <div className="form-center"><h1 style={{  color:"white"}}>NOT FOUND</h1></div>
+        }
+        return ( this.state.listResto.map((temp,index)=>
             <div key={index} className="playout">
         <img className="gbulat" src={temp.imgUrl} alt={temp.nama}/>
         <p/>{temp.nama}
         <p/>kota:{temp.kota}
+        <div className="overlay">
+                <div className="text-overlay"><input type="button" value="book" className="tombol-overlay" onClick={()=>this.toBook(temp.restoID)}/></div>
+                </div>
         </div>
-        );
+        
+        ));
     }
     render(){
-        
-        return(
-            <div>
-                <div className="container-fluid bgMaroonWhite">
-                
-                {this.renderResto()}
+        // console.log(this.props.user.role);
+        console.log(this.props.user)
+        if(this.props.user.role==="admin")
+        {
+            return(
+                <div>
+                    <div className="container-fluid bgMaroonWhite form-fit">
+                    ADMIN Home
+                    </div>
                 </div>
-                <div className="container-fluid bgBlackGold">
-                <h1 >HOW TO USE/FITUR</h1>
-                <Slide></Slide>
-
+                     );
+        }
+        else if(this.props.user.role==="resto")
+        {
+            return(
+                <div>
+                    <div className="container-fluid bgMaroonWhite form-fit">
+                    Resoran Home
+                    </div>
                 </div>
-             
-            </div>
-         
-
-                 );
+                     );
+        }
+        else{
+            return(
+                <div>
+                    <div className="container-fluid bgMaroonWhite form-fit">
+                    {this.renderResto()}
+                    </div>
+                </div>
+                     );
+        }
+       
     }
 }
-
-export default Home;
+const mapStateToProps =(state)=>{
+    const user= state.cekLogin;
+    return{user};
+  }
+export default connect(mapStateToProps)(Home);

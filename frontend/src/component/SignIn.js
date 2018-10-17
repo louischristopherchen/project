@@ -27,7 +27,7 @@ class SignIn extends Component
         {
             return <Redirect to="/" />;
         }
-        return <div className="container-fluid form-center" style={{backgroundImage: `url(${image1})`}}>
+        return <div className="container-fluid form-center-maroon" style={{backgroundImage: `url(${image1})`}}>
         <div className="col-xs-12 col-md-6"></div>     
         <div className="col-xs-12 col-md-6">
         <div className="formSignIn">

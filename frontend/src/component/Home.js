@@ -4,6 +4,8 @@ import axios from 'axios';
 import {API_URL} from '../support/api-url/apiurl';
 import queryString from 'query-string';
 import {connect} from 'react-redux';
+import '../../node_modules/font-awesome/css/font-awesome.min.css';
+import {renderBintang} from './stuff/Rating';
 class Home extends Component{
     state={listResto:[],search:""}
 
@@ -64,8 +66,10 @@ class Home extends Component{
     }
     toBook(id){
         // console.log(id);
-        this.props.history.replace(`/resto/${id}`); 
+        this.props.history.push(`/resto/${id}`); 
     }
+
+
     renderResto=()=>
     {
         if(this.state.listResto.length===0)
@@ -73,10 +77,23 @@ class Home extends Component{
             return <div className="form-center"><h1 style={{  color:"white"}}>NOT FOUND</h1></div>
         }
         return ( this.state.listResto.map((temp,index)=>
+     
             <div key={index} className="playout">
         <img className="gbulat" src={temp.imgUrl} alt={temp.nama}/>
-        <p/>{temp.nama}
-        <p/>kota:{temp.kota}
+        <table style={{margin:"auto"}}>
+            <tr>
+                <td colSpan="3">{temp.nama}</td>
+            </tr>
+            <tr style={{textAlign:"center"}}>
+            
+                <td>{temp.kota}</td>
+            </tr>
+            <tr style={{textAlign:"center"}}>
+          
+                <td>{renderBintang(temp.rating)}</td>
+            </tr>
+        
+        </table>
         <div className="overlay">
                 <div className="text-overlay"><input type="button" value="book" className="tombol-overlay" onClick={()=>this.toBook(temp.restoID)}/></div>
                 </div>
@@ -90,30 +107,30 @@ class Home extends Component{
         if(this.props.user.role==="admin")
         {
             return(
-                <div>
+
                     <div className="container-fluid bgMaroonWhite form-fit">
                     ADMIN Home
                     </div>
-                </div>
+
                      );
         }
         else if(this.props.user.role==="resto")
         {
             return(
-                <div>
+
                     <div className="container-fluid bgMaroonWhite form-fit">
                     Resoran Home
                     </div>
-                </div>
+
                      );
         }
         else{
             return(
-                <div>
+              
                     <div className="container-fluid bgMaroonWhite form-fit">
                     {this.renderResto()}
                     </div>
-                </div>
+
                      );
         }
        

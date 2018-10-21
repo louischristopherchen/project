@@ -25,9 +25,12 @@ class App extends Component {
 componentWillReceiveProps(cookie) {
   if(cookie.user.username === "") {
       cookies.remove("userCookie");
+      
   }
+  
 }
   render() {
+    
     return (
       <div className="App">
             <Header/>
@@ -38,9 +41,7 @@ componentWillReceiveProps(cookie) {
             <Route path ="/glogin" component={Glogin}/>
             <Route path ="/signIn" component={SignIn}/>
             <Route path ="/signUp" component={SignUp}/>
-            <Route path ="/resto" component={Resto}/>
-            {/* <Route path ="/" component={RestoList}/>
-            <Route path ="/" component={HowTo}/> */}
+            <Route path ="/resto/:id" component={Resto}/>
             <Footer/>
             
       </div>

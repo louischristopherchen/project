@@ -22,16 +22,7 @@ class Cart extends Component{
 
     doGet()
     {
-        axios.get(API_URL+"/listResto")
-        .then(scs=>{
-            // console.log(scs.data);
-        this.setState({listResto:scs.data});
-       
-        })
-        .catch((res) => {
-            alert('Error!');
-            console.log(res);
-        })
+        
     }
   
     renderResto=()=>

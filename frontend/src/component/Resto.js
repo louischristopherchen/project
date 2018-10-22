@@ -9,7 +9,7 @@ import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import {renderBintang} from './stuff/Rating';
 const cookies = new Cookies();
 class Resto extends Component{
-    state={detailResto:[],menuResto:[],cekSit:0,errMsg:"",page:"",orderData:[{bookDate:"",jam:"",bookSit:"",keterangan:""}]}
+    state={detailResto:[],menuResto:[],totalHarga:0,cekSit:0,errMsg:"",page:"",orderData:[{bookDate:"",jam:"",bookSit:"",keterangan:""}]}
 
     componentWillMount() {
             const cookie = cookies.get("userCookie");
@@ -51,7 +51,7 @@ class Resto extends Component{
                 id:x
             }
         }).then(scs=>{
-            console.log(scs.data);
+            // console.log(scs.data);
         this.setState({menuResto:scs.data});
        
         }).catch((err) => {
@@ -98,10 +98,29 @@ class Resto extends Component{
     renderMenu=()=>
     {  return this.state.menuResto.map((temp,index)=>{
         return(
-            <div key={index} style={{color:"white"}}>{temp.nama}</div>
+            
+             <div key={index} className="playout-maroon">
+             <img className="gbulat2" src={temp.imageUrl} alt={temp.nama}/>
+             <h4> {temp.nama}</h4>
+             <h4>{temp.harga}</h4>
+            <input type="number" ref={"menu"+index} defaultValue="0" className="input-style" onKeyUp={()=>this.totalHarga(this.refs)}/>
+             </div>
+             
+            
         )
     })
         ;
+    }
+    totalHarga(x){
+        var a=0
+        var c=0
+        for(var i in x)
+        {
+            a+=(x[i]['value']*this.state.menuResto[c].harga); 
+            c++;  
+        }
+        
+        this.setState({totalHarga:a});
     }
     CekSit=(x)=>{
         // console.log(this.refs.bookDate.value);
@@ -121,13 +140,13 @@ class Resto extends Component{
         })
     }
     doTransaction=()=>{
-        var date=new Date();
-        console.log(`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`);
-        console.log(`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
-        console.log(this.refs.bookDate.value);
-        console.log(this.refs.jam.value);
-        console.log(this.refs.bookSit.value);
-        console.log(this.refs.keterangan.value);
+        // var date=new Date();
+        // console.log(`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`);
+        // console.log(`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
+        // console.log(this.refs.bookDate.value);
+        // console.log(this.refs.jam.value);
+        // console.log(this.refs.bookSit.value);
+        // console.log(this.refs.keterangan.value);
         if(this.refs.bookDate.value==="")
         {
             this.setState({errMsg:"silahkan isi tanggal pemesanan"});
@@ -154,6 +173,43 @@ class Resto extends Component{
         
         
     }
+    doBook=(x)=>{
+        var a=[]
+        var c=0
+        for(var i in x)
+        {
+            if(parseInt(x[i]['value'])!==0)
+            {
+                a.push({
+                    jlhPesanan:parseInt(x[i]['value']),
+                    foodID:this.state.menuResto[c].foodID,
+                    totalHarga:(this.state.menuResto[c].harga*parseInt(x[i]['value']))
+            });
+            }
+            
+             c++;
+        }
+        // console.log(this.props.user.userID);
+        // console.log(a);
+        // console.log(this.state.orderData[0],this.state.detailResto.restoID,a);
+        console.log(a);
+        console.log(this.state.menuResto[2].foodID)
+        axios.post(API_URL+`/addToCart/${this.state.detailResto.restoID}`,
+            {   dataOrder:this.state.orderData[0],
+                dataFood:a,
+                totalHarga:this.state.totalHarga,
+                userID:this.props.user.userID}
+        ).then(scs=>{
+            console.log(scs);
+            this.props.history.push(`/cart`); 
+        // this.setState({detailResto:scs.data[0]});
+       
+        }).catch((err) => {
+            
+            console.log(err);
+        })
+        //param id :id
+    }
     doPageBack=()=>{
         this.setState({page:""});
     }
@@ -161,7 +217,7 @@ class Resto extends Component{
         // console.log(this.props.user.cookieCheck)
         // console.log(this.props.user)
         // console.log(this.props.match.params.id);
-        console.log(this.state.menuResto);
+        // console.log(this.state.menuResto);
     
         if(this.props.user.cookieCheck){
             if(this.props.user.role==="admin")
@@ -240,13 +296,18 @@ class Resto extends Component{
                 );
             }
             else{
-                console.log(this.state.orderData[0].jam);
+                // console.log(this.state.orderData[0].jam);
                return  (
                         <div className="container-fluid bgMaroonWhite form-fit">
                         <div className="container" >
                             <div className="row dproduct" style={{padding:"2% 2%",margin:"10px"}}>
                            {this.renderMenu()}
-                           <input type="button" value="back" onClick={this.doPageBack}/>
+                           <br/>
+                           <h3>
+                           {this.state.totalHarga}
+                           </h3>
+                           <input type="button" value="back" className="tombol" onClick={this.doPageBack}/>
+                           <input type="button" value="book" className="tombol" onClick={()=>this.doBook(this.refs)}/>
                             </div>
                         </div>
                         </div>

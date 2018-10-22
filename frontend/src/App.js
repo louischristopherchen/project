@@ -11,6 +11,7 @@ import Glogin from './component/Glogin';
 import SignIn from './component/SignIn';
 import SignUp from './component/SignUp';
 import Resto from './component/Resto';
+import Cart from './component/Cart';
 const cookies = new Cookies();
 class App extends Component {
   componentWillMount() {
@@ -42,6 +43,8 @@ componentWillReceiveProps(cookie) {
             <Route path ="/signIn" component={SignIn}/>
             <Route path ="/signUp" component={SignUp}/>
             <Route path ="/resto/:id" component={Resto}/>
+            <Route path ="/cart" component={Cart}/>
+
             <Footer/>
             
       </div>
